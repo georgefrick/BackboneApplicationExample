@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+    <link href="style/humanity/jquery-ui-1.10.2.custom.css" rel="stylesheet">
+    <link href="style/application.css" rel="stylesheet">
+    <link href="style/calculator.css" rel="stylesheet">
+
+    <script src="js/json2.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/application.js"></script>
+    <script src="js/bookdatabase.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/jquery-ui-1.10.2.custom.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs();
+            Application.startup($("#tabs"));
+        });
+    </script>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <ul id="nav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#newBookList">New Book List</a></li>
+        <li><a href="#newTodoList">New To-Do List</a></li>
+        <li><a href="#newCalculator">New Calculator</a></li>
+        <li><a href="#closeAll">Close All</a></li>
+    </ul>
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-home">Home</a></li>
+        </ul>
+        <div id="tabs-home">
+            A simple home page tab, the only "static" tab. You could remove it, or put constant content here/etc.
+        </div>
+    </div>
+
+</div>
+
+<script type="text/x-handlebars-template" id="tab-template">
+    <li><a href='#{{id}}'>{{label}}</a></li>
+</script>
+
+<script type="text/x-handlebars-template" id="tabContent-template">
+    <div id='{{id}}'></div>
+</script>
+
+
+<script type="text/x-handlebars-template" id="shelf-template">
+    <h2>There are {{ count }} books on your shelf.</h2>
+
+    <div class='books'></div>
+</script>
+
+<script type="text/x-handlebars-template" id="book-template">
+    <h3>{{ title }} ( {{ isbn }} )</h3>
+
+    <h3>{{ author }}</h3>
+
+    <p>
+        <button>Delete</button>
+    </p>
+</script>
+
+<script type="text/x-handlebars-template" id="form-template">
+    <legend>Add a Book</legend>
+    <fieldset>
+        <div class='control-group'>
+            <label for='title'>Title</label>
+
+            <div>
+                <input type='text' id='title'>
+            </div>
+        </div>
+        <div class='control-group'>
+            <label for='author'>Author</label>
+
+            <div>
+                <input type='text' id='author'>
+            </div>
+        </div>
+        <div class='control-group'>
+            <label for='isbn'>ISBN</label>
+
+            <div>
+                <input type='text' id='isbn'>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit">Add Book</button>
+        </div>
+    </fieldset>
+</script>
+
+<script type="text/x-handlebars-template" id="calculator-template">
+
+    <form class="calculator" name="Keypad">
+      <fieldset>
+       <legend>Calculator</legend>
+        <input name="ReadOut" type="Text" size="24" value="0" width="100%">
+        <button class="btnClear" >C</button>
+        <button class="btnClearEntry"  >CE</button>
+        <button class="numInput" name="7"  value="7">7</button>
+        <button class="numInput" name="8"  value="8">8</button>
+        <button class="numInput" name="9"  value="9">9</button>
+        <button class="btnNeg" value="+/-">+/-</button>
+        <button class="btnPercent"  value="%">%</button>
+        <button class="numInput" name="4"  value="4">4</button>
+        <button class="numInput" name="5"  value="5">5</button>
+        <button class="numInput" name="6" value="6">6</button>
+        <button class="opInput" name="+"  value="+">+</button>
+        <button class="opInput" name="-"  value="-">-</button>
+        <button class="numInput" name="1"  value="1">1</button>
+        <button class="numInput" name="2"  value="2">2</button>
+        <button class="numInput" name="3"  value="3">3</button>
+        <button class="opInput" name="*"  value="*">*</button>
+        <button class="opInput" name="/"  value="/">/</button>
+        <button class="numInput" name="0"  value="0">0</button>
+        <button class="btnDecimal" type="Button" value=".">.</button>
+        <button class="opInput" name="=" value="=">=</button>
+      </fieldset>
+    </form>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+body {
+    width: 960px;
+    padding: 100px 0;
+    margin: 0 auto;
+    font-family: Calibri, sans-serif;
+}
+
+#nav {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#nav li {
+    display: inline;
+}
+
+#nav a {
+    display: inline-block;
+    padding: 10px;
+}
+
+a {
+    color: #cc8725;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
