@@ -3,69 +3,55 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Backbone Single Page Routed Tab Application by georgefrick</title>
+
+    <title>Backbone Routed Tabs Example by georgefrick</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Backbone Single Page Routed Tab Application</h1>
-          <h2>A JQuery tabbed Backbone application using routing.</h2>
-        </header>
+    <header>
+      <div class="container">
+        <h1>Backbone Routed Tabs Example</h1>
+        <h2>Using JQuery and Backbone as a simple application framework</h2>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/georgefrick/BackboneApplicationExample/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/georgefrick/BackboneApplicationExample/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/georgefrick/BackboneApplicationExample" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        <section id="downloads">
+          <a href="https://github.com/georgefrick/BackboneApplicationExample/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/georgefrick/BackboneApplicationExample/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/georgefrick/BackboneApplicationExample" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
+      </div>
+    </header>
 
-        <hr>
+    <div class="container">
+      <section id="main_content">
+        <h3>Single page application management.</h3>
 
-        <section id="main_content">
-          <h3>Welcome to GitHub Pages.</h3>
+<p>This application is a full example of using Backbone.js and JQuery to do simple management of larger single page web applications. Using Backbones router to manage the addition and removal of tabs allows for each tab to exist as a module and be developed independently.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>The application is focusing on kick starting applications and helping users learn backbone. From there you can use it as an application skeleton; or just an example to refer back to.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h3>Features:</h3>
+
+<ol>
+<li>Support for singleton tabs, reopening selects the previously opened tab.</li>
+<li>Support for multiple tabs; uniquely identified.</li>
+<li>You can easily add tab history, re-open, etc.</li>
+<li>Scope is managed; parts of the application can be built individually and scope to their portion of the page.</li>
+</ol><h3>More Stuff..</h3>
+
+<pre><code>$ cd CODE EXAMPLE
 </code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
 <h3>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
-
-        <footer>
-          Backbone Single Page Routed Tab Application is maintained by <a href="https://github.com/georgefrick">georgefrick</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+<p>You can contact the author (<a href="https://github.com/georgefrick" class="user-mention">@georgefrick</a>) through GitHub or via email at <a href="mailto:george.frick@gmail.com">george.frick@gmail.com</a>.</p>
+      </section>
     </div>
+
+    
   </body>
 </html>
