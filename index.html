@@ -127,7 +127,7 @@ unique id identifying the div where the content goes.</p>
 <p>Time to add that ability to select by id. Just look for the tab with that URL and get the parent index. This is the newer JQuery UI 1.9 way of doing it. There is also a check to make sure the tab is open.</p>
 
 <pre><code>    selectTabById : function(tabId) {
-      var index = $('#tabs a[href="' + tabId + '"]').parent().index();
+      var index = $('#tabs a[href="#' + tabId + '"]').parent().index();
       return $("#" + tabId).length 
                &amp;&amp; $("#tabs").tabs( "option", "active",index);
     },
