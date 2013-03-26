@@ -121,7 +121,8 @@
             return current.id;
         },
         selectTabById : function(tabId) {
-            var index = $('#tabs a[href="' + tabId + '"]').parent().index();
+            var index = $('#tabs a[href="#' + tabId + '"]').parent().index();
+            console.log("the index: " + index);
             return $("#" + tabId).length && $("#tabs").tabs( "option", "active",index);
         },
         closeAllTabs:function () {
