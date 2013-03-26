@@ -51,7 +51,7 @@
             "closeAll":"closeAllTabs"
         },
         showHome:function () {
-            // NO OP
+            // do nothing.
         },
         newTodoList:function () {
             Backbone.history.navigate("#");
@@ -71,8 +71,7 @@
             Backbone.history.navigate("#");
         },
         newBookList:function () {
-            if (!this.openBookShelf
-                || ($("#" + this.openBookShelf).length == 0)) {
+            if (!this.openBookShelf || ($("#" + this.openBookShelf).length == 0)) {
                 var tabId = "book-shelf" + Math.guid();
                 var tabName = "Book Shelf";
                 var shelf = new BookDatabase.Shelf();
