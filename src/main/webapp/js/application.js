@@ -45,17 +45,13 @@
         },
         routes:{
             "":"showHome",
-            "newBookList":"newBookList",
-            "newTodoList":"newTodoList",
+            "newBookList":"newBookList",            
             "newCalculator":"newCalculator",
             "closeAll":"closeAllTabs"
         },
         showHome:function () {
             // do nothing.
-        },
-        newTodoList:function () {
-            Backbone.history.navigate("#");
-        },
+        },      
         newCalculator:function () {
             // For the calculator, we allow multiple tabs...
         	 var tabId = "calculator-" + Math.guid();
