@@ -30,20 +30,60 @@
       <section id="main_content">
         <h3>Single page application management.</h3>
 
-<p>This application is a full example of using Backbone.js and JQuery to do simple management of larger single page web applications. Using Backbones router to manage the addition and removal of tabs allows for each tab to exist as a module and be developed independently.</p>
+<p>This application is a full example of using Backbone.js and JQuery to do simple management of larger single page web applications. </p>
 
-<p>The application is focusing on kick starting applications and helping users learn backbone. From there you can use it as an application skeleton; or just an example to refer back to.</p>
+<p>The application works by using Backbone router route urls as commands. Using Backbones router to manage the addition and removal of tabs allows for tabs to exist as separate modules. Each module can be developed independently; giving the application a real 'windowed' feel on a single page.</p>
+
+<p>The application is focusing on kick starting applications and helping users learn backbone. From there you can use it as an application skeleton; or just an example to refer back to. </p>
 
 <h3>Features:</h3>
 
 <ol>
 <li>Support for singleton tabs, reopening selects the previously opened tab.</li>
 <li>Support for multiple tabs; uniquely identified.</li>
-<li>You can easily add tab history, re-open, etc.</li>
+<li>You can easily add tab history, re-open, etc. (Not included)</li>
 <li>Scope is managed; parts of the application can be built individually and scope to their portion of the page.</li>
-</ol><h3>More Stuff..</h3>
+</ol><h3>How It Works</h3>
 
-<pre><code>$ cd CODE EXAMPLE
+<p><strong>Singleton Tab</strong></p>
+
+<pre><code>  // If the tab doesn't exist or was destroyed, create.
+if (!this.openBookShelf
+     || ($("#" + this.openBookShelf).length == 0)) {
+  // Create a unique ID this for tab.
+  var tabId = "book-shelf" + Math.guid();
+  var tabName = "Book Shelf";
+  // Create an instance of your module.
+  var shelf = new BookDatabase.Shelf();
+  this.openBookShelf = this.addTab({
+    'id' : tabId,
+    'name' : tabName
+  });
+  // Content has a unique container.
+  var tabContent = $("#" + this.openBookShelf);
+  tabContent.empty();
+  tabContent.append(shelf.render().el);
+} else if (this.openBookShelf) {
+  // Tab exists, so select it.
+  this.selectTabById(this.openBookShelf);
+}
+</code></pre>
+
+<p><strong>Multiple Tabs</strong></p>
+
+<pre><code>// Create unique tab id.
+var tabId = "calculator-" + Math.guid();
+var tabName = "Calculator";
+// Create an instance of your module.
+var calc = new Calculator.CalculatorView();
+var uniqueId = this.addTab({
+  'id' : tabId,
+  'name' : tabName
+});
+// Content has a unique container.
+var tabContent = $("#" + uniqueId);
+tabContent.empty();
+tabContent.append(calc.render().el);
 </code></pre>
 
 <h3>Support or Contact</h3>
