@@ -1,42 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
     <title>Backbone Routed Tabs Example by georgefrick</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Backbone Routed Tabs Example</h1>
+        <p class="header">Using JQuery and Backbone as a simple application framework</p>
 
-    <header>
-      <div class="container">
-        <h1>Backbone Routed Tabs Example</h1>
-        <h2>Using JQuery and Backbone as a simple application framework</h2>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/georgefrick/BackboneApplicationExample/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/georgefrick/BackboneApplicationExample/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/georgefrick/BackboneApplicationExample">View On GitHub</a></li>
+        </ul>
 
-        <section id="downloads">
-          <a href="https://github.com/georgefrick/BackboneApplicationExample/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/georgefrick/BackboneApplicationExample/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/georgefrick/BackboneApplicationExample" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/georgefrick">georgefrick</a></p>
 
-    <div class="container">
-      <section id="main_content">
-        <h3>Single page application management.</h3>
 
-<p>This application is a full example of using Backbone.js and JQuery to do simple management of larger single page web applications. </p>
+      </header>
+      <section>
+        <h3>Bringing Order To Chaos.</h3>
 
-<p>The application works by using Backbone router route urls as commands. Using Backbones router to manage the addition and removal of tabs allows for tabs to exist as separate modules. Each module can be developed independently; giving the application a real 'windowed' feel on a single page.</p>
+<p>By extending Backbone.js Router to add, remove and manage an instance of JQuery UI Tabs; you can build a single page web application without the mess. Organize your code into "modules", and launch the modules within tabs. </p>
 
-<p>The application is focusing on kick starting applications and helping users learn backbone. From there you can use it as an application skeleton; or just an example to refer back to. </p>
+<p>Each module can be developed independently; giving the application a real 'windowed' feel on a single page. The application is focusing on kick starting applications and helping users learn backbone. From there you can use it as an application skeleton; or just a fun example to refer back to. </p>
 
-<h3>Features:</h3>
+<h3>But I Don't Know Backbone?</h3>
+
+<ol>
+<li><a href="http://www.youtube.com/watch?v=PqtYcHyyWJA&amp;feature=plcp">Nick Gauthier's  Introduction To Backbone</a></li>
+<li><a href="http://www.youtube.com/watch?v=PcTVQyrWSSs">If you only have 30 minutes.</a></li>
+<li><a href="http://net.tutsplus.com/tutorials/javascript-ajax/getting-started-with-backbone-js/">Tuts Plus on Backbone.js</a></li>
+<li><a href="http://www.youtube.com/watch?v=uykzCfu1RiQ">Learning the RESTful side.</a></li>
+</ol><h3>Features:</h3>
 
 <ol>
 <li>Support for singleton tabs, reopening selects the previously opened tab.</li>
@@ -45,53 +52,156 @@
 <li>Scope is managed; parts of the application can be built individually and scope to their portion of the page.</li>
 </ol><h3>How It Works</h3>
 
-<p><strong>Singleton Tab</strong></p>
+<p>Create a special Backbone.Router, that has the two templates needed for adding a tab to Jquery UI Tabs; the list element and the content.</p>
 
-<pre><code>  // If the tab doesn't exist or was destroyed, create.
-if (!this.openBookShelf
-     || ($("#" + this.openBookShelf).length == 0)) {
-  // Create a unique ID this for tab.
-  var tabId = "book-shelf" + Math.guid();
-  var tabName = "Book Shelf";
-  // Create an instance of your module.
-  var shelf = new BookDatabase.Shelf();
-  this.openBookShelf = this.addTab({
-    'id' : tabId,
-    'name' : tabName
+<pre><code>Application.Router = Backbone.Router.extend({
+  initialize:function (options) {
+    this.el = options.el;
+    this.tabTemplate = Handlebars.loadTemplate("tab");
+    this.tabContentTemplate = Handlebars.loadTemplate("tabContent");            
+  },
+</code></pre>
+
+<p>Create the routes; similar to struts, this will be "what urls go where"; then add a blank function so that the url never looks like my.com/my.html#thelastcommand</p>
+
+<pre><code>  routes:{
+    "":"showHome",
+    "newBookList":"newBookList",
+    "newTodoList":"newTodoList",
+    "newCalculator":"newCalculator",
+    "closeAll":"closeAllTabs"
+  },
+  showHome:function () {
+    // do nothing
+  },
+</code></pre>
+
+<p>Create the addTab function. This function adds a new tab to the user interface, and returns a 
+unique id identifying the div where the content goes.</p>
+
+<p>The user can provide just a name, or everything (name, content, id)</p>
+
+<pre><code>    addTab : function(tabInfo) {
+      var current = {
+        // Defaults
+        'name' : "New Tab",
+        'content' : "",
+        'show' : true,
+        'id' : Math.guid()
+      };
+      var attr, val;
+      var attrs = {};
+
+      // Just name passed in? or an object full of properties.
+      if (typeof tabInfo === 'object') {
+        attrs = tabInfo;
+      } else {
+        attrs.name = tabInfo;
+      }
+
+      // Look for passed in options that override defaults and set them.
+      for (attr in attrs) {
+        val = attrs[attr];
+        if (current[attr] !== undefined &amp;&amp; !_.isEqual(current[attr], val)) {
+          current[attr] = val;
+        }
+      }
+
+      // Construct the new tab, consisting of the tab and the tab content.
+      this.el.find(".ui-tabs-nav:first").append(this.tabTemplate(current));
+      this.el.append(this.tabContentTemplate(current));
+      this.el.tabs("refresh");
+
+      // If the user opted not to show the tab, open in the background.
+      if (current.show) {
+        this.selectTabById(current.id);
+      }
+      return current.id;
+    },
+</code></pre>
+
+<p>Time to add that ability to select by id. Just look for the tab with that URL and get the parent index. This is the newer JQuery UI 1.9 way of doing it. There is also a check to make sure the tab is open.</p>
+
+<pre><code>    selectTabById : function(tabId) {
+      var index = $('#tabs a[href="' + tabId + '"]').parent().index();
+      return $("#" + tabId).length 
+               &amp;&amp; $("#tabs").tabs( "option", "active",index);
+    },
+</code></pre>
+
+<p>Another example of tab manipulation; this will close everything but the 'home' tab. You could have it close that too of course.</p>
+
+<pre><code>    closeAllTabs:function () {
+      var tabCount = $('#tabs &gt;ul &gt;li').size();
+      while (tabCount &gt; 1) {
+        var tab = $( "#tabs" ).find( ".ui-tabs-nav li:eq(1)" ).remove();
+        var panelId = tab.attr( "aria-controls" );
+        $( "#" + panelId ).remove();
+        $( "tabs" ).tabs( "refresh" );
+        tabCount--;
+      }
+      Backbone.history.navigate(""); // for now.
+    },
+</code></pre>
+
+<p>Now, lets open a simple module. This calculator module can be opened as many times as the user wishes. They'll get a new calculator and can operate separately on all of them. Shown here, is the routing function that creates an instance and places it in a tab.</p>
+
+<pre><code>  newCalculator:function () {
+    // For the calculator, we allow multiple tabs...
+    var tabId = "calculator-" + Math.guid();
+    var tabName = "Calculator";
+    var calc = new Calculator.CalculatorView();
+    var uniqueId = this.addTab({
+      'id' : tabId,
+      'name' : tabName
+    });
+    var tabContent = $("#" + uniqueId);
+      tabContent.empty();
+      tabContent.append(calc.render().el);                       
+      Backbone.history.navigate("#");
+    },
+</code></pre>
+
+<p>What about something more important; where the user can only have a single instance open? We can track the unique ID and check if it is still on the page. Other than that, creation of the tab is similar to the calculator example.</p>
+
+<pre><code>    newBookList:function () {
+      if (!this.openBookShelf 
+           || ($("#" + this.openBookShelf).length == 0)) {
+        var tabId = "book-shelf" + Math.guid();
+        var tabName = "Book Shelf";
+        var shelf = new BookDatabase.Shelf();
+        this.openBookShelf = this.addTab({
+          'id' : tabId,
+          'name' : tabName
+        });
+        var tabContent = $("#" + this.openBookShelf);
+        tabContent.empty();
+        tabContent.append(shelf.render().el);
+      } else if (this.openBookShelf) {
+        this.selectTabById(this.openBookShelf);
+      }
+      Backbone.history.navigate(""); // for now.
+    },
   });
-  // Content has a unique container.
-  var tabContent = $("#" + this.openBookShelf);
-  tabContent.empty();
-  tabContent.append(shelf.render().el);
-} else if (this.openBookShelf) {
-  // Tab exists, so select it.
-  this.selectTabById(this.openBookShelf);
-}
 </code></pre>
 
-<p><strong>Multiple Tabs</strong></p>
+<p>You could very easily create a Backbone model/collection pair to track open tabs and even remember them; since the tab was opened by a URL. Also, because of this URL setup, a the user can be sent to the application with a specific tab open.</p>
 
-<pre><code>// Create unique tab id.
-var tabId = "calculator-" + Math.guid();
-var tabName = "Calculator";
-// Create an instance of your module.
-var calc = new Calculator.CalculatorView();
-var uniqueId = this.addTab({
-  'id' : tabId,
-  'name' : tabName
-});
-// Content has a unique container.
-var tabContent = $("#" + uniqueId);
-tabContent.empty();
-tabContent.append(calc.render().el);
-</code></pre>
+<p>I encourage you to review the rest of the source code and even run the application. I would love any feedback.</p>
+
+<h3>Running The Application</h3>
+
+<p>Simply build the application with Maven and deploy to Tomcat 7. </p>
 
 <h3>Support or Contact</h3>
 
 <p>You can contact the author (<a href="https://github.com/georgefrick" class="user-mention">@georgefrick</a>) through GitHub or via email at <a href="mailto:george.frick@gmail.com">george.frick@gmail.com</a>.</p>
       </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
     </div>
-
-    
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
