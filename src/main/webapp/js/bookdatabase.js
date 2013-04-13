@@ -17,10 +17,7 @@
    		author : "no author"
    		/* If you give something a field called "id", this won't work! */
    	  },
-   	  urlRoot:  "rest/books", // nice huh :-)
-      title:  function() { return this.get('title'); },
-      isbn:   function() { return this.get('isbn'); },
-      author: function() { return this.get('author'); }
+   	  urlRoot:  "rest/books"
     });
     
 
@@ -64,9 +61,6 @@
           this.$el.html(this.template(this));
           return this;
         },
-        title: function() { return this.model.get('title'); },
-        author: function() { return this.model.get('author'); },
-        isbn: function() { return this.model.get('isbn'); },
         deleteModel: function() {
           this.model.destroy();
         }
