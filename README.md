@@ -11,3 +11,5 @@ web application without the mess. Organize your code into "modules", and launch 
 Each "module" can be developed independently; giving the application a real 'windowed' feel on a single page. The
 application is focusing on kick starting applications and helping users learn backbone. From there you can use it as
 an application skeleton; or just a fun example to refer back to.
+
+See the website for the demo app: http://georgefrick.github.io/BackboneApplicationExample/
