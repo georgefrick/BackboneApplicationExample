@@ -53,7 +53,7 @@
 				    <!-- If you want to use this, put the proper entry in your .m2 directory settings file and update here.. -->
 					<url>http://melchior:9090/manager/text</url>
 					<server>mytomcat</server>
-					<path>/bookdb</path>
+					<path>/bbapp</path>
 				</configuration>
 			</plugin>
 			<plugin>
