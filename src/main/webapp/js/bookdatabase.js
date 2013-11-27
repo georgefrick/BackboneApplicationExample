@@ -58,7 +58,7 @@
           'click button': 'deleteModel'
         },
         render: function() {
-          this.$el.html(this.template(this));
+          this.$el.html(this.template(this.model.toJSON()));
           return this;
         },
         deleteModel: function() {
